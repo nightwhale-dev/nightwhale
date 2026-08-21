@@ -1,29 +1,50 @@
 # NightWhale 夜鲲
 
-> DeepSeek Harness (dsh) 的社区增强层。
-> 把生态里散落的好插件、skill、工作流吞进来,用评测集筛一遍,只把真正让 dsh 变强的喂回去。
+> dsh 生态的 **idea 交易所**。
+> 同一个问题，不同的人喜欢不同的答案——把所有候选解法并列摊开，你自己选、自己 buy、自己改。
 
-dsh 官方的图腾是黑鲸。NightWhale 是它的夜间版——不做第 15 个 harness,做一层寄生在 dsh 上的增强。
+不做排行榜，不替你做决定。NightWhale 的第一原则：**让多元想法可见**，而不是把它们压成一个"最优推荐"。
 
 ## 为什么做这个
 
-dsh 官方仓库暂时不收外部 PR,社区能力全散在各自的仓库里,没有一个汇聚的地方。NightWhale 把它们收拢、筛选、分发。
+真正稀缺的不是代码——token 极大丰富的时代，代码是被解放的生产力。稀缺的是**不一样的想法**。
 
-关键是"筛":不是什么插件都往里塞。很多 prompt 是给弱模型用的扶手,在 V4 这种模型上要么没用、要么拖后腿。NightWhale 用一套评测集判断——在斩杀线以上的模型上,这个东西到底涨点还是掉点。涨点才留,掉点淘汰。
+现在的插件市场默认"存在一个最优插件，帮你找到它"。NightWhale 反过来：同一个问题（比如"agent 跨 session 记不住偏好"）可以有多种正交解法（摘要压缩 / 结构化笔记 / 向量召回），它们是平级的候选。哪个匹配你当下的问题理解，只有你知道。
 
-## 现状
-
-早期开发中(developer preview)。想跟进就点个 Star。
+核心动作：**检索** 问题 → 看到全部候选 idea → **buy** 一个到本地（连源码一起，不是黑盒）→ 用 → 好就 **improve**，不好就 **uninstall**（卸载是有价值的淘汰信号）→ 有了新想法就 **propose** 回公共库。
 
 ## 安装
 
-即将上线。
+即将上线（包名已占位）：
 
-## 路线
+```bash
+npm install -g nightwhale     # coming soon
+pip install nightwhale        # coming soon
+cargo install nightwhale      # coming soon
+```
 
-- [ ] 吞并:统一收录 dsh 社区插件/skill
-- [ ] 筛选:评测集打分,标记哪些在高级模型上真正有效
-- [ ] 分发:一条命令装好筛过的增强包
+## 用法
+
+```bash
+nightwhale sync                          # 同步公共 idea 库
+nightwhale search "跨 session 记忆"       # 检索问题，看到并列的候选方案
+nightwhale buy <problem>/<idea>          # 把某个方案的源码拉到本地
+nightwhale improve <id> --note "..."     # 记录你的改进
+nightwhale uninstall <id> --reason "..." # 淘汰它（留下信号）
+nightwhale list                          # 你的 idea 账本
+nightwhale propose --problem <p> --idea <i>  # 贡献新 idea（生成 PR 模板）
+```
+
+## 架构（MVP）
+
+- **个人仓库** = 本地 `~/.nightwhale/`（ledger + 拉取的源码），一个 CLI 操作它，无需账户。
+- **公共 idea 库** = [`nightwhale-dev/registry`](https://github.com/nightwhale-dev/registry)，GitHub repo 当数据库，提交新 idea = 发 PR。
+
+详见 [PRD.md](./PRD.md)。
+
+## 现状
+
+Developer preview。核心 CLI 流程已跑通，registry 有种子数据。想跟进就点个 Star。
 
 ## License
 
